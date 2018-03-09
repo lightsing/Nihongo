@@ -6,20 +6,20 @@ yarn = Yarn(app)
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html',
                            search={
                                'token': '123456',
                                'placeholder': '加油哦'
                            },
                            videos=[{
-                               'vid': 1,
-                               'name': '标准日本语初级上册 01',
+                               'vid': i,
+                               'name': '标准日本语初级上册 {0:02}'.format(i),
                                'thumb': '/static/img/01.webp',
                                'duration': '01:07:10',
                                'play': 233,
                                'danmu': 0
-                           }])
+                           } for i in range(1, 11)])
 
 
 if __name__ == '__main__':
