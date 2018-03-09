@@ -1,0 +1,17 @@
+{
+  "name": "ja.lightsing.me",
+  "version": "0.1.0",
+  "main": "ja.py",
+  "author": "lightsing",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "abplayer-html5": "git+https://github.com/zacyu/ABPlayerHTML5-bilibili-ver.git",
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": ""
+}
