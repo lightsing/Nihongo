@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "header.html" %}
+    <link href="/static/css/base.css" rel="stylesheet">
+    <link href="/static/css/colpick.css" rel="stylesheet">
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script src="/static/js/CommentCoreLibrary.min.js"></script>
+    <script src="/static/js/ABPMobile.js"></script>
+    <script src="/static/js/ABPLibxml.js"></script>
+    <script src="/static/js/ABPlayer.js"></script>
+    <script src="/static/js/ColPick.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load",function(){
+            var inst = ABP.create(document.getElementById("player"), {
+                src: {
+                    playlist: [{
+                        video: document.getElementById("video"),
+                        comments: "/static/danmu/01.xml"
+                    }]
+                },
+                width: 1024,
+                height: 500,
+                mobile: isMobile()
+            });
+            window.abpinst = inst;
+        });
+    </script>
+</head>
+<body>
+    {% include "nav.html" %}
+    <div class="wrapper">
+        <div class="video-info">
+            <h1 title="标准日本语初级上册 01">标准日本语初级上册 01</h1>
+            <div class="info">
+                <time>2018-03-09 12:31:29</time>
+                <a class="btn-appeal">稿件投诉</a>
+            </div>
+            <div class="number">
+                <span title="总播放数122777" class="v play">12.3万</span>
+                <span title="总弹幕数794" class="v dm">794</span>
+            </div>
+        </div>
+        <div class="up-info">
+            <div class="avatar">
+                <a href="#" target="_blank" class="a">
+                    <img src="/static/img/avatar.png" width="68" height="68" class="avatar">
+                </a>
+            </div>
+            <div class="info">
+                <div class="user">
+                    <a href="#" target="_blank" class="name">Nihongo</a>
+                </div>
+                <div class="btn followe">
+                    <a class="bi-btn b-gz">
+                        <span class="gz">+ 关注</span>
+                        <!--span class="ygz">已关注</span>
+                        <span class="qxgz">取消关注</span-->
+                    </a>
+                </div>
+                <div class="bio"><span>君は日本語が本当に上手</span><!----></div>
+                <div class="number">
+                    <span title="投稿数26">投稿：26</span><span title="粉丝数67349">粉丝：6.7万</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="player">
+            <video id="video" autobuffer="true" data-setup="{}">
+                <source src="/static/video/01.mp4" type="video/mp4">
+                <p>Your browser does not support html5 video!</p>
+            </video>
+        </div>
+    </div>
+</body>
+</html>
