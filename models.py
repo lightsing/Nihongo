@@ -1,9 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
+from config import config
+from qiniu import Auth
 
 db = SQLAlchemy()
 Column, DateTime, ForeignKey, Integer, String, text = (
     db.Column, db.DateTime, db.ForeignKey, db.Integer, db.String, db.text)
 relationship = db.relationship
+
+client = Auth(config.qiniu_access_key, config.qiniu_secret_key)
+
+
+def gen_url(key, expires=3600):
+    url = 'http://{}/{}'.format(config.qiniu_bucket_domain, key)
+    return client.private_download_url(url, expires=expires)
 
 
 class Follow(db.Model):
@@ -45,3 +54,7 @@ class Video(db.Model):
     format = Column(String(10), server_default=text("'mp4'"))
 
     up = relationship('Up')
+
+    @property
+    def url(self):
+        return gen_url('video/{}.{}'.format(self.hash, self.format))

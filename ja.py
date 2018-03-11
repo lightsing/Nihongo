@@ -1,8 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 from flask_yarn import Yarn
+from config import init_app
+from models import db, Video, Up
 
 app = Flask(__name__)
+init_app(app)
 yarn = Yarn(app)
+db.app = app
+db.init_app(app)
 
 
 @app.route('/')
@@ -12,36 +17,30 @@ def index():
                                'token': '123456',
                                'placeholder': '加油哦'
                            },
-                           videos=[{
-                               'vid': 10000 + i,
-                               'name': '标准日本语初级上册 {0:02}'.format(i),
-                               'thumb': '/static/img/01.webp',
-                               'duration': '01:07:10',
-                               'play': 233,
-                               'danmu': 0
-                           } for i in range(1, 11)])
+                           videos=Video.query.all())
 
 
 @app.route('/video/av<int:vid>/')
 def video(vid):
-    return render_template('video.html', search={
-                                'token': '123456',
-                                'placeholder': '加油哦'
-                           }, video={
-                                'name': '标准日本语初级上册 {0:02}'.format(vid - 10000),
-                                'time': '2018-03-11 14:54',
-                                'play': 233,
-                                'danmu': 233,
-                                'url': '/static/video/01.mp4',
-                                'danmu_url': '/static/danmu/01.xml',
-                                'up': {
-                                    'name': 'Nihongo',
-                                    'bio': '君は日本語が本当に上手',
-                                    'uploads': 24,
-                                    'followers': 1123
-                                }
-                           })
+    try:
+        _video = Video.query.filter_by(vid=vid).first()
+        _up = Up.query.filter_by(uid=_video.uid).first()
+        return render_template('video.html', search={
+                                    'token': '123456',
+                                    'placeholder': '加油哦'
+                               }, video={
+                                    'name': _video.name,
+                                    'time': _video.time,
+                                    'play': _video.play,
+                                    'danmu': _video.danmu,
+                                    'url': _video.url,
+                                    'danmu_url': '/static/danmu/01.xml',
+                                    'up': _up
+                               })
+    except AttributeError:
+        return abort(404)
 
 
 if __name__ == '__main__':
+
     app.run(debug=True)
