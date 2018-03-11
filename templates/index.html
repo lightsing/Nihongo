@@ -1,36 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
     {% include "header.html" %}
     <link href="/static/css/home.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <div id="banner_link" class="head-banner report-wrap-module report-scroll-module">
-        <div class="head-content">
-            <img id="banner_logo" src="/static/img/Nihongo.svg" height="100">
-            <div class="search">
-                <form class="searchform" _lpchecked="1">
-                    <input type="text" autocomplete="off" accesskey="s" token="{{ search.token }}"
-                           x-webkit-speech="" x-webkit-grammar="builtin:translate"
-                           placeholder="{{ search.placeholder }}" value="" class="search-keyword">
-                    <button type="submit" class="search-submit"></button>
-                </form>
-                <!--ul class="search-suggest">
-                    <li class="kw">
-                        <div class="b-line"><p><span>历史搜索</span></p></div>
-                    </li>
-                    <li class="suggest-item">
-                        <a href="//search.bilibili.com/all?keyword=日语&amp;from_source=banner_search" target="_blank">日语</a>
-                        <div class="cancel"></div>
-                    </li>
-                </ul-->
-            </div>
-        </div>
-        <a target="_blank" class="banner-link"></a>
-    </div>
+    {% include "nav.html" %}
     <div class="video-box"><!--
     {% for video in videos %}
      --><div class="spread-module"><a href="/video/av{{ video.vid }}/" target="_blank">
@@ -56,6 +31,5 @@
         <img alt="" border="0" src="https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif" width="1" height="1">
         </form>
     </div>
-</div>
 </body>
 </html>
