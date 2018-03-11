@@ -4,6 +4,7 @@
     {% include "header.html" %}
     <link href="/static/css/base.css" rel="stylesheet">
     <link href="/static/css/colpick.css" rel="stylesheet">
+    <link href="/static/css/video.css" rel="stylesheet">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/js/CommentCoreLibrary.min.js"></script>
     <script src="/static/js/ABPMobile.js"></script>
@@ -16,7 +17,7 @@
                 src: {
                     playlist: [{
                         video: document.getElementById("video"),
-                        comments: "/static/danmu/01.xml"
+                        comments: "{{ video.danmu_url }}"
                     }]
                 },
                 width: 1024,
@@ -31,14 +32,14 @@
     {% include "nav.html" %}
     <div class="wrapper">
         <div class="video-info">
-            <h1 title="标准日本语初级上册 01">标准日本语初级上册 01</h1>
+            <h1 title="{{ video.name }}">{{ video.name }}</h1>
             <div class="info">
-                <time>2018-03-09 12:31:29</time>
+                <time>{{ video.time }}</time>
                 <a class="btn-appeal">稿件投诉</a>
             </div>
             <div class="number">
-                <span title="总播放数122777" class="v play">12.3万</span>
-                <span title="总弹幕数794" class="v dm">794</span>
+                <span class="v play">{{ video.play }}</span>
+                <span class="v dm">{{ video.danmu }}</span>
             </div>
         </div>
         <div class="up-info">
@@ -49,7 +50,7 @@
             </div>
             <div class="info">
                 <div class="user">
-                    <a href="#" target="_blank" class="name">Nihongo</a>
+                    <a href="#" target="_blank" class="name">{{ video.up.name }}</a>
                 </div>
                 <div class="btn followe">
                     <a class="bi-btn b-gz">
@@ -58,9 +59,10 @@
                         <span class="qxgz">取消关注</span-->
                     </a>
                 </div>
-                <div class="bio"><span>君は日本語が本当に上手</span><!----></div>
+                <div class="bio"><span>{{ video.up.bio }}</span><!----></div>
                 <div class="number">
-                    <span title="投稿数26">投稿：26</span><span title="粉丝数67349">粉丝：6.7万</span>
+                    <span>投稿：{{ video.up.uploads }}</span>
+                    <span>粉丝：{{ video.up.followers }}</span>
                 </div>
 
             </div>
@@ -68,7 +70,7 @@
 
         <div id="player">
             <video id="video" autobuffer="true" data-setup="{}">
-                <source src="/static/video/01.mp4" type="video/mp4">
+                <source src="{{ video.url }}" type="video/mp4">
                 <p>Your browser does not support html5 video!</p>
             </video>
         </div>
