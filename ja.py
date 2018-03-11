@@ -22,23 +22,24 @@ def index():
 
 @app.route('/video/av<int:vid>/')
 def video(vid):
-    try:
-        _video = Video.query.filter_by(vid=vid).first()
-        _up = Up.query.filter_by(uid=_video.uid).first()
-        return render_template('video.html', search={
-                                    'token': '123456',
-                                    'placeholder': '加油哦'
-                               }, video={
-                                    'name': _video.name,
-                                    'time': _video.time,
-                                    'play': _video.play,
-                                    'danmu': _video.danmu,
-                                    'url': _video.url,
-                                    'danmu_url': '/static/danmu/01.xml',
-                                    'up': _up
-                               })
-    except AttributeError:
+    _video = Video.query.filter_by(vid=vid).first()
+    if _video is None:
         return abort(404)
+    _video.play += 1
+    db.session.commit()
+    _up = Up.query.filter_by(uid=_video.uid).first()
+    return render_template('video.html', search={
+                                'token': '123456',
+                                'placeholder': '加油哦'
+                           }, video={
+                                'name': _video.name,
+                                'time': _video.time,
+                                'play': _video.play,
+                                'danmu': _video.danmu,
+                                'url': _video.url,
+                                'danmu_url': '/static/danmu/01.xml',
+                                'up': _up
+                           })
 
 
 if __name__ == '__main__':
