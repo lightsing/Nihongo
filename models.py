@@ -58,3 +58,7 @@ class Video(db.Model):
     @property
     def url(self):
         return gen_url('video/{}.{}'.format(self.hash, self.format))
+
+    @property
+    def thumb(self):
+        return gen_url('image/{}.{}'.format(self.hash, 'webp'))
