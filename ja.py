@@ -42,6 +42,15 @@ def video(vid):
                            })
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    print(e)
+    return render_template('404.html', search={
+                               'token': '123456',
+                               'placeholder': '加油哦'
+                           })
+
+
 if __name__ == '__main__':
 
     app.run(debug=True)
